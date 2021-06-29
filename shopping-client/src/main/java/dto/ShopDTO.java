@@ -11,11 +11,11 @@ public class ShopDTO {
     @NotBlank
     private String userIdentifier;
     @NotNull
-    private Float total;
-    @NotNull
+    private float total;
     private Date date;
     @NotNull
     private List<ItemDTO> items;
+
 
     public String getUserIdentifier() {
         return userIdentifier;
