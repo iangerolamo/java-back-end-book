@@ -3,6 +3,7 @@
   <component name="ProjectModuleManager">
     <modules>
       <module fileurl="file://$PROJECT_DIR$/.idea/java-back-end-book.iml" filepath="$PROJECT_DIR$/.idea/java-back-end-book.iml" />
+      <module fileurl="file://$PROJECT_DIR$/product-api/product-api.iml" filepath="$PROJECT_DIR$/product-api/product-api.iml" />
       <module fileurl="file://$PROJECT_DIR$/shopping-client/shopping-client.iml" filepath="$PROJECT_DIR$/shopping-client/shopping-client.iml" />
       <module fileurl="file://$PROJECT_DIR$/user-api/user-api.iml" filepath="$PROJECT_DIR$/user-api/user-api.iml" />
     </modules>
