@@ -1,6 +1,6 @@
 package io.github.iangerolamo.productapi.controller;
 
-import io.github.iangerolamo.productapi.dto.ProductDTO;
+import dto.ProductDTO;
 import io.github.iangerolamo.productapi.service.ProductService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;

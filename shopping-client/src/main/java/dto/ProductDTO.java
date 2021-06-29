@@ -13,6 +13,7 @@ public class ProductDTO {
     private Float preco;
     @NotNull
     private CategoryDTO category;
+    private String descricao;
 
     public String getProductIdentifier() {
         return productIdentifier;
@@ -44,6 +45,14 @@ public class ProductDTO {
 
     public void setCategory(CategoryDTO category) {
         this.category = category;
+    }
+
+    public String getDescricao() {
+        return descricao;
+    }
+
+    public void setDescricao(String descricao) {
+        this.descricao = descricao;
     }
 
 }

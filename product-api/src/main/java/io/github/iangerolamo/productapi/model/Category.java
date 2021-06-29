@@ -1,6 +1,7 @@
 package io.github.iangerolamo.productapi.model;
 
-import io.github.iangerolamo.productapi.dto.CategoryDTO;
+import dto.CategoryDTO;
+
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;

@@ -1,6 +1,6 @@
 package io.github.iangerolamo.productapi.model;
 
-import io.github.iangerolamo.productapi.dto.ProductDTO;
+import dto.ProductDTO;
 
 import javax.persistence.*;
 
@@ -71,8 +71,8 @@ public class Product {
         Product product = new Product();
         product.setNome(productDTO.getNome());
         product.setPreco(productDTO.getPreco());
-        product.setDescricao(productDTO.getDescricao());
         product.setProductIdentifier(productDTO.getProductIdentifier());
+        product.setDescricao(productDTO.getDescricao());
         if (productDTO.getCategory() != null) {
             product.setCategory(
                     Category.convert(productDTO.getCategory()));
