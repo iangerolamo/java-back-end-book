@@ -1,6 +1,7 @@
 package io.github.iangerolamo.productapi.service;
 
 import dto.ProductDTO;
+import exception.ProductNotFoundException;
 import io.github.iangerolamo.converter.DTOConverter;
 import io.github.iangerolamo.productapi.model.Product;
 import io.github.iangerolamo.productapi.repository.ProductRepository;
@@ -32,7 +33,7 @@ public class ProductService {
         if (product != null) {
             return DTOConverter.convert(product);
         }
-        return null;
+        throw new ProductNotFoundException();
     }
 
     public ProductDTO save(ProductDTO productDTO) {
@@ -40,12 +41,11 @@ public class ProductService {
         return DTOConverter.convert(product);
     }
 
-    public ProductDTO delete(long productId) {
-        Optional<Product> product = productRepository.findById(productId);
-        if (product.isEmpty()) {
-            return null;
+    public ProductDTO delete(long ProductId) throws ProductNotFoundException {
+        Optional<Product> Product = productRepository.findById(ProductId);
+        if (Product.isPresent()) {
+            productRepository.delete(Product.get());
         }
-        productRepository.delete(product.get());
-        return null;
+        throw new ProductNotFoundException();
     }
 }

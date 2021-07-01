@@ -1,9 +1,11 @@
 package io.github.iangerolamo.userapi.service;
 
 import dto.UserDTO;
+import exception.UserNotFoundException;
 import io.github.iangerolamo.converter.DTOConverter;
 import io.github.iangerolamo.userapi.model.User;
 import io.github.iangerolamo.userapi.repository.UserRepository;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -13,11 +15,8 @@ import java.util.stream.Collectors;
 @Service
 public class UserService {
 
-    private final UserRepository userRepository;
-
-    public UserService(UserRepository userRepository) {
-        this.userRepository = userRepository;
-    }
+    @Autowired
+    private UserRepository userRepository;
 
     public List<UserDTO> getAll() {
         List<User> usuarios = userRepository.findAll();
@@ -26,10 +25,10 @@ public class UserService {
 
     public UserDTO findById(long userId) {
         Optional<User> usuario = userRepository.findById(userId);
-        if (usuario.isEmpty()) {
-            return null;
+        if (usuario.isPresent()) {
+            return DTOConverter.convert(usuario.get());
         }
-        return DTOConverter.convert(usuario.get());
+        throw new UserNotFoundException();
     }
 
     public UserDTO save(UserDTO userDTO) {
@@ -38,12 +37,12 @@ public class UserService {
         return DTOConverter.convert(user);
     }
 
-    public UserDTO delete(long userId) {
+    public UserDTO delete(long userId) throws UserNotFoundException {
         Optional<User> user = userRepository.findById(userId);
         if (user.isPresent()) {
             userRepository.delete(user.get());
         }
-        return null;
+        throw new UserNotFoundException();
     }
 
     public UserDTO findByCpf(String cpf) {
@@ -51,7 +50,7 @@ public class UserService {
         if (user != null) {
             return DTOConverter.convert(user);
         }
-        return null;
+        throw new UserNotFoundException();
     }
 
     public List<UserDTO> queryByName(String nome) {

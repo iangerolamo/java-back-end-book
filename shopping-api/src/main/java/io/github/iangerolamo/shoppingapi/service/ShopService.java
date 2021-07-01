@@ -1,7 +1,7 @@
 package io.github.iangerolamo.shoppingapi.service;
 
-import dto.ShopDTO;
-import dto.ShopReportDTO;
+import dto.*;
+import exception.ProductNotFoundException;
 import io.github.iangerolamo.converter.DTOConverter;
 import io.github.iangerolamo.shoppingapi.model.Shop;
 import io.github.iangerolamo.shoppingapi.repository.ShopRepository;
@@ -18,6 +18,12 @@ public class ShopService {
 
     @Autowired
     private ShopRepository shopRepository;
+
+    @Autowired
+    private ProductService productService;
+
+    @Autowired
+    private UserService userService;
 
     public List<ShopDTO> getAll() {
         List<Shop> shops = shopRepository.findAll();
@@ -51,10 +57,13 @@ public class ShopService {
         if (shop.isPresent()) {
             return DTOConverter.convert(shop.get());
         }
-        return null;
+        throw new ProductNotFoundException();
     }
 
     public ShopDTO save(ShopDTO shopDTO) {
+        UserDTO userDTO = userService.getUserByCpf(shopDTO.getUserIdentifier());
+        validateProducts(shopDTO.getItems());
+
         shopDTO.setTotal(shopDTO.getItems()
         .stream()
         .map(x -> x.getPrice())
@@ -62,9 +71,22 @@ public class ShopService {
 
         Shop shop = Shop.convert(shopDTO);
         shop.setDate(new Date());
+
         shop = shopRepository.save(shop);
         return DTOConverter.convert(shop);
     }
+
+    private boolean validateProducts(List<ItemDTO> items) {
+        for (ItemDTO  item : items) {
+            ProductDTO productDTO = productService.getProductByIdentifier(item.getProductIdentifier());
+            if (productDTO == null) {
+                return false;
+            }
+            item.setPrice(productDTO.getPreco());
+        }
+        return true;
+    }
+
 
     public List<ShopDTO> getShopsByFilter(Date dataInicio, Date dataFim, Float valorMinimo) {
         List<Shop> shops = shopRepository.getShopByFilters(dataInicio, dataFim, valorMinimo);
