@@ -1,6 +1,7 @@
 package io.github.iangerolamo.userapi.controller;
 
 import dto.UserDTO;
+import exception.UserNotFoundException;
 import io.github.iangerolamo.userapi.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
@@ -30,19 +31,20 @@ public class UserController {
     }
 
     @GetMapping("/user/cpf/{cpf}")
-    UserDTO findByCpf(@PathVariable String cpf) {
-        return userService.findByCpf(cpf);
+    UserDTO findByCpf(
+            @RequestParam(name="key") String key,
+            @PathVariable String cpf) {
+        return userService.findByCpf(cpf, key);
     }
 
     @DeleteMapping("user/{id}")
-    UserDTO delete(@PathVariable Long id) {
+    UserDTO delete(@PathVariable Long id) throws UserNotFoundException {
         return userService.delete(id);
     }
 
     @GetMapping("/user/search")
     public List<UserDTO> queryByName(
-            @RequestParam(name="nome", required = true)
-            String nome) {
+            @RequestParam(name="nome", required = true) String nome) {
         return userService.queryByName(nome);
     }
 }
