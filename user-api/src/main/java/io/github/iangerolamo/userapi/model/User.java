@@ -9,7 +9,7 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import java.util.Date;
 
-@Entity
+@Entity(name="user")
 public class User {
 
     @Id
@@ -19,6 +19,7 @@ public class User {
     private String nome;
     private String cpf;
     private String endereco;
+    private String key;
     private String email;
     private String telefone;
     private Date dataCadastro;
@@ -28,6 +29,7 @@ public class User {
         user.setNome(userDTO.getNome());
         user.setCpf(userDTO.getCpf());
         user.setEndereco(userDTO.getEndereco());
+        user.setKey(userDTO.getKey());
         user.setEmail(userDTO.getEmail());
         user.setTelefone(userDTO.getTelefone());
         user.setDataCadastro(userDTO.getDataCadastro());
@@ -56,6 +58,14 @@ public class User {
 
     public void setCpf(String cpf) {
         this.cpf = cpf;
+    }
+
+    public String getKey() {
+        return key;
+    }
+
+    public void setKey(String key) {
+        this.key = key;
     }
 
     public String getEndereco() {

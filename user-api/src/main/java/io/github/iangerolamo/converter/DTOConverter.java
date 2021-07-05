@@ -8,6 +8,7 @@ public class DTOConverter {
         UserDTO userDTO = new UserDTO();
         userDTO.setNome(user.getNome());
         userDTO.setEndereco(user.getEndereco());
+        userDTO.setKey(user.getKey());
         userDTO.setCpf(user.getCpf());
         userDTO.setEmail(user.getEmail());
         userDTO.setTelefone(user.getTelefone());

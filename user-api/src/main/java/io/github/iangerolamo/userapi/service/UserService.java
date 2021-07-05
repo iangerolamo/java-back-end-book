@@ -10,6 +10,7 @@ import org.springframework.stereotype.Service;
 
 import java.util.List;
 import java.util.Optional;
+import java.util.UUID;
 import java.util.stream.Collectors;
 
 @Service
@@ -32,6 +33,8 @@ public class UserService {
     }
 
     public UserDTO save(UserDTO userDTO) {
+
+        userDTO.setKey(UUID.randomUUID().toString());
 
         User user = userRepository.save(User.convert(userDTO));
         return DTOConverter.convert(user);
