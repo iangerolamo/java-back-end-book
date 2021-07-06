@@ -41,9 +41,11 @@ public class ShopController {
         return shopService.findById(id);
     }
 
-    @PostMapping("/shopping")
-    public ShopDTO newShop(@Valid @RequestBody ShopDTO shopDTO) {
-        return shopService.save(shopDTO);
+    @PostMapping("/shopping/")
+    public ShopDTO newShop(
+            @RequestHeader(name="key", required = true) String key,
+            @RequestBody ShopDTO shopDTO) {
+        return shopService.save(shopDTO, key);
     }
 
     @GetMapping("/shopping/search")

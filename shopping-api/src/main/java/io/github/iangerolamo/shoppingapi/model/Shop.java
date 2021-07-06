@@ -64,7 +64,6 @@ public class Shop {
     public static Shop convert(ShopDTO shopDTO) {
         Shop shop = new Shop();
         shop.setUserIdentifier(shopDTO.getUserIdentifier());
-        shop.setUserIdentifier(shopDTO.getUserIdentifier());
         shop.setTotal(shopDTO.getTotal());
         shop.setDate(shopDTO.getDate());
         shop.setItems(shopDTO

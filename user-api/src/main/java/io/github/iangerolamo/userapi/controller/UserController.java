@@ -21,24 +21,24 @@ public class UserController {
     }
 
     @GetMapping("users/{id}")
-    UserDTO findById(@PathVariable Long id) {
+    public UserDTO findById(@PathVariable Long id) {
         return userService.findById(id);
     }
 
     @PostMapping("/user")
-    UserDTO newUser(@RequestBody UserDTO userDTO) {
+    public UserDTO newUser(@RequestBody UserDTO userDTO) {
         return userService.save(userDTO);
     }
 
     @GetMapping("/user/cpf/{cpf}")
-    UserDTO findByCpf(
+    public UserDTO findByCpf(
             @RequestParam(name="key") String key,
             @PathVariable String cpf) {
         return userService.findByCpf(cpf, key);
     }
 
     @DeleteMapping("user/{id}")
-    UserDTO delete(@PathVariable Long id) throws UserNotFoundException {
+    public UserDTO delete(@PathVariable Long id) throws UserNotFoundException {
         return userService.delete(id);
     }
 

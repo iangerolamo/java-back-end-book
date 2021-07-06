@@ -60,8 +60,8 @@ public class ShopService {
         throw new ProductNotFoundException();
     }
 
-    public ShopDTO save(ShopDTO shopDTO) {
-        UserDTO userDTO = userService.getUserByCpf(shopDTO.getUserIdentifier());
+    public ShopDTO save(ShopDTO shopDTO, String key) {
+        UserDTO userDTO = userService.getUserByCpf(shopDTO.getUserIdentifier(), key);
         validateProducts(shopDTO.getItems());
 
         shopDTO.setTotal(shopDTO.getItems()
